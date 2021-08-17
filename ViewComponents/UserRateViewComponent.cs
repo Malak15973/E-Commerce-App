@@ -17,7 +17,7 @@ namespace E_Commerce_App.ViewComponents
             this.rateRepository = rateRepository;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string UserId,int ProductId)
+        public IViewComponentResult Invoke(string UserId, int ProductId)
         {
             var result = rateRepository.GetUserProductRate(UserId, ProductId);
             RateVM model = new RateVM

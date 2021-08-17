@@ -25,12 +25,6 @@ namespace E_Commerce_App.BL.Repositories
             db.SaveChanges();
         }
 
-        public void Delete(int ProductId)
-        {
-            var product = Get(ProductId);
-            db.Products.Remove(product);
-            db.SaveChanges();
-        }
 
         public IEnumerable<Product> Get()
         {
@@ -47,11 +41,6 @@ namespace E_Commerce_App.BL.Repositories
             return Get().OrderByDescending(p => rateRepository.GetTotalProductRate(p.Id));
         }
 
-        public void Update(Product product)
-        {
-            var updatedProduct = db.Products.Attach(product);
-            updatedProduct.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            db.SaveChanges();
-        }
+       
     }
 }
