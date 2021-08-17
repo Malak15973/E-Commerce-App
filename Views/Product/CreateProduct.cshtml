@@ -1,0 +1,43 @@
+﻿@model CreateProductVM 
+@{
+    ViewBag.Title = "CreateProduct";
+}
+
+<h1>CreateProduct</h1>
+
+<!-- Page Content -->
+ 
+    <div style="padding-top:100px" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>Create New Product</h2>
+                </div>
+            </div>
+            <div class="col-md-6 create-product-form">
+                <form asp-controller="Admin" asp-action="CreateProduct" enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <label asp-for="Title" class="form-label">Product Title</label>
+                    <input asp-for="Title" type="text" class="form-control">
+                    <span asp-validation-for="Title" class="text-danger"></span><br />
+
+                    <label asp-for="Description" class="form-label">Product Description</label>
+                    <input asp-for="Description" type="text" class="form-control">
+                    <span asp-validation-for="Description" class="text-danger"></span><br />
+
+                    <label asp-for="Price" class="form-label">Product Price</label>
+                    <input asp-for="Price" type="text" class="form-control">
+                    <span asp-validation-for="Price" class="text-danger"></span><br />
+
+                    <label class="form-label">Upload Product Picture</label><br />
+                    <input asp-for="Photo" type="file" accept="image/*" ><br />
+                    <span asp-validation-for="Photo" class="text-danger"></span><br />
+
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "ConfirmEmail";
+}
+
+@if (ViewBag.Error == null)
+{
+    <h1 style="padding-top:200px">Email Confirmed</h1>
+}else{
+    <h1>Email Not Confirmed Yet</h1>
+}
+
+<a asp-controller="Account" asp-action="Login" class="btn btn-primary">Login</a>
+

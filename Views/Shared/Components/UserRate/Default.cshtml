@@ -1,0 +1,131 @@
+﻿@model RateVM
+@inject IRateRepository rateRepository
+
+@if (User.Identity.IsAuthenticated)
+{
+    <ul class="stars">
+        @for (int i = 0; i < 5; i++)
+        {
+            if (i < Model.UserRate)
+            {
+                <li><i id="st@(i + 1)_@Model.ProductId" class="fa fa-star checked"></i></li>
+            }
+            else
+            {
+                <li><i id="st@(i + 1)_@Model.ProductId" class="fa fa-star"></i></li>
+            }
+        }
+    </ul>
+}
+<span id="totalRate_@Model.ProductId">totalRate (@rateRepository.GetTotalProductRate(@Model.ProductId))</span>
+@if (User.Identity.IsAuthenticated)
+{
+    <script src="/vendor/jquery/jquery.min.js"></script>
+
+    <script>
+        $(function () {
+
+            $("#st1_@Model.ProductId").on("click", function () {
+                $.ajax({
+                    type:"POST",
+                    url: "/Product/RateProduct",
+                    data: {
+                        UserId: "@Model.UserId",
+                        UserRate: 1,
+                        ProductId: "@Model.ProductId"
+                    },
+                    success: function (totalRate) {
+                        $("#st1_" + @Model.ProductId).attr("class", "fa fa-star checked");
+                        $("#st2_" + @Model.ProductId).attr("class", "fa fa-star");
+                        $("#st3_" + @Model.ProductId).attr("class", "fa fa-star");
+                        $("#st4_" + @Model.ProductId).attr("class", "fa fa-star");
+                        $("#st5_" + @Model.ProductId).attr("class", "fa fa-star");
+                        $("#totalRate_@Model.ProductId").text("totalRate(" + totalRate +")");
+                    },
+                });
+            });
+
+            $("#st2_@Model.ProductId").on("click", function () {
+                $.ajax({
+                    type:"POST",
+                    url: "/Product/RateProduct",
+                    data: {
+                        UserId: "@Model.UserId",
+                        UserRate: 2,
+                        ProductId: "@Model.ProductId"
+                    },
+                    success: function (totalRate) {
+                        $("#st1_" + @Model.ProductId).attr("class", "fa fa-star checked");
+                        $("#st2_" + @Model.ProductId).attr("class", "fa fa-star checked");
+                        $("#st3_" + @Model.ProductId).attr("class", "fa fa-star");
+                        $("#st4_" + @Model.ProductId).attr("class", "fa fa-star");
+                        $("#st5_" + @Model.ProductId).attr("class", "fa fa-star");
+                        $("#totalRate_@Model.ProductId").text("totalRate(" + totalRate +")");
+                    }
+                });
+            });
+
+            $("#st3_@Model.ProductId").on("click", function () {
+                $.ajax({
+                    type:"POST",
+                    url: "/Product/RateProduct",
+                    data: {
+                        UserId: "@Model.UserId",
+                        UserRate: 3,
+                        ProductId: "@Model.ProductId"
+                    },
+                    success: function (totalRate) {
+                        $("#st1_" + @Model.ProductId).attr("class", "fa fa-star checked");
+                        $("#st2_" + @Model.ProductId).attr("class", "fa fa-star checked");
+                        $("#st3_" + @Model.ProductId).attr("class", "fa fa-star checked");
+                        $("#st4_" + @Model.ProductId).attr("class", "fa fa-star");
+                        $("#st5_" + @Model.ProductId).attr("class", "fa fa-star");
+                        $("#totalRate_@Model.ProductId").text("totalRate(" + totalRate +")");
+                    }
+                });
+            });
+
+            $("#st4_@Model.ProductId").on("click", function () {
+                $.ajax({
+                    type:"POST",
+                    url: "/Product/RateProduct",
+                    data: {
+                        UserId: "@Model.UserId",
+                        UserRate: 4,
+                        ProductId: "@Model.ProductId"
+                    },
+                    success: function (totalRate) {
+                        $("#st1_" + @Model.ProductId).attr("class", "fa fa-star checked");
+                        $("#st2_" + @Model.ProductId).attr("class", "fa fa-star checked");
+                        $("#st3_" + @Model.ProductId).attr("class", "fa fa-star checked");
+                        $("#st4_" + @Model.ProductId).attr("class", "fa fa-star checked");
+                        $("#st5_" + @Model.ProductId).attr("class", "fa fa-star");
+                        $("#totalRate_@Model.ProductId").text("totalRate(" + totalRate +")");
+                    }
+                });
+            });
+
+            $("#st5_@Model.ProductId").on("click", function () {
+
+                $.ajax({
+                    type:"POST",
+                    url: "/Product/RateProduct",
+                    data: {
+                        UserId: "@Model.UserId",
+                        UserRate: 5,
+                        ProductId: "@Model.ProductId"
+                    },
+                    success: function (totalRate) {
+                        $("#st1_" + @Model.ProductId).attr("class", "fa fa-star checked");
+                        $("#st2_" + @Model.ProductId).attr("class", "fa fa-star checked");
+                        $("#st3_" + @Model.ProductId).attr("class", "fa fa-star checked");
+                        $("#st4_" + @Model.ProductId).attr("class", "fa fa-star checked");
+                        $("#st5_" + @Model.ProductId).attr("class", "fa fa-star checked");
+                        $("#totalRate_@Model.ProductId").text("totalRate(" + totalRate +")");
+                    }
+                });
+            });
+
+        });
+    </script>
+}

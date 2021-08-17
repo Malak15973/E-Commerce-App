@@ -1,0 +1,104 @@
+﻿@inject IOrderRepository orderRepository 
+@model IEnumerable< ProductVM>
+@{
+    ViewBag.Title = "Sixteen Clothing HTML Template";
+}
+
+<!-- Banner Starts Here -->
+<div class="banner header-text">
+    <div class="owl-banner owl-carousel">
+        <div class="banner-item-01">
+            <div class="text-content">
+                <h4>Best Offer</h4>
+                <h2>New Arrivals On Sale</h2>
+            </div>
+        </div>
+        <div class="banner-item-02">
+            <div class="text-content">
+                <h4>Flash Deals</h4>
+                <h2>Get your best products</h2>
+            </div>
+        </div>
+        <div class="banner-item-03">
+            <div class="text-content">
+                <h4>Last Minute</h4>
+                <h2>Grab last minute deals</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner Ends Here -->
+
+<div class="latest-products">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>Highly Rated Products</h2>
+                    <a asp-controller="Product" asp-action="Products">view all products <i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>
+            @foreach (var product in Model)
+            {
+                <div class="col-lg-4 col-md-4 all des">
+                    <div class="product-item">
+                        <img src="~/Files/Photos/@product.PhotoPath" alt="">
+                        <div class="down-content">
+                            <h4>@product.Title</h4>
+                            <h6>$@product.Price</h6>
+                            <p>@product.Description</p>
+                            @await Component.InvokeAsync("UserRate", new { userID = ViewBag.UserId, productId = product.Id })
+                        </div>
+                        @if (orderRepository.IsProductInUserCart(ViewBag.UserId, product.Id))
+                        {
+                            <button class="btn btn-dark"> Already In Your Cart</button>
+                        }
+                        else
+                        {
+                            <form asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" method="post">
+                                <input type="submit" class="btn btn-danger" value="Add To Cart" />
+                            </form>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@*<div class="products">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="filters-content">
+                    <div class="row grid">
+                        @foreach (var product in Model)
+                        {
+                            <div class="col-lg-4 col-md-4 all des">
+                                <div class="product-item">
+                                    <img src="~/Files/Photos/@product.PhotoPath" alt="">
+                                    <div class="down-content">
+                                        <h4>@product.Title</h4>
+                                        <h6>$@product.Price</h6>
+                                        <p>@product.Description</p>
+                                        @await Component.InvokeAsync("UserRate", new { userID = ViewBag.UserId, productId = product.Id })
+                                    </div>
+                                    @if (!orderRepository.IsProductInUserCart(ViewBag.UserId, product.Id) || !User.Identity.IsAuthenticated)
+                                    {
+                                        <form asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" method="post">
+                                            <input type="submit" class="btn btn-danger" value="Add To Cart" />
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-dark"> Already In Your Cart</button>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@

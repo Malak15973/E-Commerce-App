@@ -1,0 +1,85 @@
+﻿@model IEnumerable<CartItemVM> 
+@{
+    ViewBag.Title = "CartItems";
+}
+
+
+<div class="page-heading products-heading header-text">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-content">
+                    <h4>new arrivals</h4>
+                    <h2>sixteen products</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="latest-products">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>Your Cart Items</h2>
+                </div>
+            </div>
+            @foreach (var cartItem in Model)
+            {
+                <div class="col-md-4">
+                    <div class="product-item">
+                        <img src="~/Files/Photos/@cartItem.PhotoPath" alt="">
+                        <div class="down-content">
+                            <h4>@cartItem.Title</h4>
+                            <h6 id="price_@cartItem.OrderId">$@(cartItem.Price* cartItem.Quantity)</h6>
+                        </div>
+                        <div class="numberOfProduct">
+                            <button id="subtract_@cartItem.OrderId" class="btn btn-primary">-</button>
+                            <span id="quantity_@cartItem.OrderId">@cartItem.Quantity</span>
+                            <button id="add_@cartItem.OrderId" class="btn btn-primary">+</button>
+                        </div>
+                        <form asp-controller="Cart" asp-action="DeleteFromCart" asp-route-id="@cartItem.OrderId" method="post">
+                            <input class="btn btn-danger delete-from-cart" type="submit" value="Delete From Cart" />
+                        </form>
+                    </div>
+                </div>
+                <script src="~/vendor/jquery/jquery.js"></script>
+                <script>
+                    $(function () {
+                        $("#add_@cartItem.OrderId").on("click", function () {
+                            $.ajax({
+                                type:"POST",
+                                url: "/Cart/IncrementOrderQuantity",
+                                data: {
+                                    orderId: "@cartItem.OrderId",
+                                },
+                                success: function (newQuantity) {
+                                    $("#quantity_@cartItem.OrderId").text("" + newQuantity + "");
+                                    $("#price_@cartItem.OrderId").text("$" + newQuantity * @cartItem.Price +"");
+                                },
+                            });
+                        });
+
+                        $("#subtract_@cartItem.OrderId").on("click", function () {
+                            $.ajax({
+                                type:"POST",
+                                url: "/Cart/DecrementOrderQuantity",
+                                data: {
+                                    orderId: "@cartItem.OrderId",
+                                },
+                                success: function (newQuantity) {
+                                    $("#quantity_@cartItem.OrderId").text("" + newQuantity + "");
+                                    $("#price_@cartItem.OrderId").text("$" + newQuantity * @cartItem.Price +"");
+                                },
+                            });
+                        });
+                    });
+                </script>
+            }
+
+
+            <a asp-controller="Cart" asp-action="Checkout" class="btn btn-success order-button">Checkout</a>
+        </div>
+    </div>
+</div>
