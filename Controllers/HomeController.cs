@@ -27,7 +27,7 @@ namespace E_Commerce_App.Controllers
         {
             ViewBag.UserId = userManager.GetUserId(User);
             var result = productRepsoitory.
-                GetProductsOrderByRate().
+                GetProductsOrderByRate().Skip(0).Take(3).
                 Select(p => new ProductVM() { Id = p.Id, Description = p.Description, PhotoPath = p.PhotoPath, Price = p.Price, Title = p.Title }); ;
             return View(result);
         }

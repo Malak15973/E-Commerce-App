@@ -28,7 +28,7 @@
                         {
                             <div class="col-lg-4 col-md-4 all des">
                                 <div class="product-item">
-                                    <img src="~/Files/Photos/@product.PhotoPath" alt="">
+                                    <img width="370" height="170" src="~/Files/Photos/@product.PhotoPath" alt="">
                                     <div class="down-content">
                                         <h4>@product.Title</h4>
                                         <h6>$@product.Price</h6>
@@ -56,7 +56,7 @@
                 <ul class="pages">
                     @for (int i = 1; i <= ((int)(ViewBag.ProductsCount/5))+1; i++)
                     {
-                        <li><a asp-controller="Product" asp-action="Products" asp-route-skip="@(i-1)">@i</a></li>
+                        <li><a asp-controller="Product" asp-action="Products" asp-route-skip="@((i-1)*5)">@i</a></li>
                     }
                 </ul>
             </div>
