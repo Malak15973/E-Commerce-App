@@ -81,5 +81,6 @@ namespace E_Commerce_App.Controllers
             var totalPostRate = rateRepository.GetTotalProductRate(model.ProductId);
             return Json(totalPostRate);
         }
+
     }
 }

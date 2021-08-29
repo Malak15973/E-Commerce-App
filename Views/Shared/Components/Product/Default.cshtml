@@ -1,0 +1,25 @@
+﻿@model ProductVM 
+
+
+<div class="col-lg-4 col-md-4 all des">
+    <div class="product-item">
+        <img width="370" height="170" src="~/Files/Photos/@Model.PhotoPath" alt="">
+        <div class="down-content">
+            <h4>@Model.Title</h4>
+            <h6>$@Model.Price</h6>
+            <p>@Model.Description</p>
+            @await Component.InvokeAsync("UserRate", new { userID = ViewBag.UserId, productId = Model.Id })
+        </div>
+        @if (Model.IsInUserCart)
+        {
+            <button class="btn btn-dark"> Already In Your Cart</button>
+        }
+        else
+        {
+            <form asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" method="post">
+                <input type="submit" class="btn btn-danger" value="Add To Cart" />
+            </form>
+        }
+
+    </div>
+</div>

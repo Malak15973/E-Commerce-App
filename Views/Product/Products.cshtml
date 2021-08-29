@@ -25,28 +25,7 @@
                     <div class="row grid">
                         @foreach (var product in Model)
                         {
-                            <div class="col-lg-4 col-md-4 all des">
-                                <div class="product-item">
-                                    <img width="370" height="170" src="~/Files/Photos/@product.PhotoPath" alt="">
-                                    <div class="down-content">
-                                        <h4>@product.Title</h4>
-                                        <h6>$@product.Price</h6>
-                                        <p>@product.Description</p>
-                                        @await Component.InvokeAsync("UserRate", new { userID = ViewBag.UserId, productId = product.Id })
-                                    </div>
-                                    @if (product.IsInUserCart)
-                                    {
-                                        <button class="btn btn-dark"> Already In Your Cart</button>
-                                    }
-                                    else
-                                    {
-                                        <form asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" method="post">
-                                            <input type="submit" class="btn btn-danger" value="Add To Cart" />
-                                        </form>
-                                    }
-
-                                </div>
-                            </div>
+                            @await Component.InvokeAsync("Product", new { product = product, userId = ViewBag.UserId })
                         }
                     </div>
                 </div>
