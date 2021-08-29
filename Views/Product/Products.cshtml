@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<ProductVM>
-@inject IOrderRepository orderRepository  
 @{
     ViewBag.Title = "Sixteen Clothing Products";
 }
@@ -35,7 +34,7 @@
                                         <p>@product.Description</p>
                                         @await Component.InvokeAsync("UserRate", new { userID = ViewBag.UserId, productId = product.Id })
                                     </div>
-                                    @if (orderRepository.IsProductInUserCart(ViewBag.UserId, product.Id))
+                                    @if (product.IsInUserCart)
                                     {
                                         <button class="btn btn-dark"> Already In Your Cart</button>
                                     }

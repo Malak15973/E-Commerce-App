@@ -12,5 +12,6 @@ namespace E_Commerce_App.Models
         public string Description { get; set; }
         public double Price { get; set; }
         public string PhotoPath { get; set; }
+        public bool IsInUserCart { get; set; }
     }
 }

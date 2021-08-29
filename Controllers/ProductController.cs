@@ -16,21 +16,24 @@ namespace E_Commerce_App.Controllers
     {
         private readonly IProductRepository productRepository;
         private readonly IRateRepository rateRepository;
+        private readonly IOrderRepository orderRepository;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public ProductController(IProductRepository productRepository, IRateRepository rateRepository,UserManager<ApplicationUser> userManager)
+        public ProductController(IProductRepository productRepository, IRateRepository rateRepository,IOrderRepository orderRepository ,UserManager<ApplicationUser> userManager)
         {
             this.productRepository = productRepository;
             this.rateRepository = rateRepository;
+            this.orderRepository = orderRepository;
             this.userManager = userManager;
         }
         public IActionResult Products(int skip)
         {
+            var userId = userManager.GetUserId(User);
             var products = productRepository.Get();
             ViewBag.ProductsCount = products.Count();
-            ViewBag.UserId = userManager.GetUserId(User);
+            ViewBag.UserId = userId;
             var result = products.Skip(skip).Take(5).
-                Select(p=> new ProductVM() {Id = p.Id,Description= p.Description,PhotoPath=p.PhotoPath,Price = p.Price ,Title=p.Title });
+                Select(p=> new ProductVM() {Id = p.Id,Description= p.Description,PhotoPath=p.PhotoPath,Price = p.Price ,Title=p.Title,IsInUserCart=orderRepository.IsProductInUserCart(userId,p.Id) });
             return View(result);
         }
         [Authorize]
