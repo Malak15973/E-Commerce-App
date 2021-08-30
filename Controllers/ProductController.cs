@@ -82,5 +82,37 @@ namespace E_Commerce_App.Controllers
             return Json(totalPostRate);
         }
 
+        [HttpPost]
+        public JsonResult Search(string searchKey)
+        {
+            var userId = userManager.GetUserId(User);
+
+            IEnumerable<ProductVM> products;
+
+            if (searchKey==null|| searchKey == "")
+            {
+                products = productRepository.
+                Get().
+                Select(p => new ProductVM() { Id = p.Id, Description = p.Description, PhotoPath = p.PhotoPath, Price = p.Price, Title = p.Title, IsInUserCart = orderRepository.IsProductInUserCart(userId, p.Id) });
+            }
+            else
+            {
+                products = productRepository.
+                Get().
+                Where(p => p.Description.Contains(searchKey) || p.Price.ToString().Contains(searchKey) || p.Title.Contains(searchKey)).
+                Select(p => new ProductVM() { Id = p.Id, Description = p.Description, PhotoPath = p.PhotoPath, Price = p.Price, Title = p.Title, IsInUserCart = orderRepository.IsProductInUserCart(userId, p.Id) });
+            }
+
+            return Json(products);
+        }
+
+        [HttpGet]
+        public IActionResult GetProductViewComponent(ProductVM product)
+        {
+            var userId = userManager.GetUserId(User);
+
+            return ViewComponent("Product", new { product = product, userId = userId });
+        }
+
     }
 }

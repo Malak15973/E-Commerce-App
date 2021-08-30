@@ -26,18 +26,30 @@
     <link rel="stylesheet" href="~/assets/css/templatemo-sixteen.css">
     <link rel="stylesheet" href="~/assets/css/owl.css">
 
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+    <script src="~/assets/js/custom.js"></script>
+    <script src="~/assets/js/owl.js"></script>
+    <script src="~/assets/js/slick.js"></script>
+    <script src="~/assets/js/isotope.js"></script>
+    <script src="~/assets/js/accordions.js"></script>
+
 </head>
 
 <body>
 
     <!-- ***** Preloader Start ***** -->
     @*<div id="preloader">
-        <div class="jumper">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>*@
+            <div class="jumper">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>*@
     <!-- ***** Preloader End ***** -->
     <!-- Header -->
     <header class="">
@@ -50,163 +62,163 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     @if (ViewContext.RouteData.Values["Action"].ToString().Equals("Products"))
                     {
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a asp-controller="Home" asp-action="Index" class="nav-link">
-                                Home
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item active">
-                            <a asp-controller="Product" asp-action="Products" class="nav-link">Our Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="Product" asp-action="CreateProduct" class="nav-link">Create Product</a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="Cart" asp-action="CartItems" class="nav-link"><i class="fa fa-cart-plus fa-2x"></i></a>
-                        </li>
-                        @if (signInManager.IsSignedIn(User))
-                        {
+                        <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
+                                <a asp-controller="Home" asp-action="Index" class="nav-link">
+                                    Home
+                                    <span class="sr-only">(current)</span>
+                                </a>
                             </li>
-                        }
-                        else
-                        {
+                            <li class="nav-item active">
+                                <a asp-controller="Product" asp-action="Products" class="nav-link">Our Products</a>
+                            </li>
                             <li class="nav-item">
-                                <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
+                                <a asp-controller="Product" asp-action="CreateProduct" class="nav-link">Create Product</a>
                             </li>
-                        }
-                    </ul>
+                            <li class="nav-item">
+                                <a asp-controller="Cart" asp-action="CartItems" class="nav-link"><i class="fa fa-cart-plus fa-2x"></i></a>
+                            </li>
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
+                                </li>
+                            }
+                        </ul>
                     }
                     else if (ViewContext.RouteData.Values["Action"].ToString().Equals("Index"))
                     {
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a asp-controller="Home" asp-action="Index" class="nav-link">
-                            Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-controller="Product" asp-action="Products" class="nav-link">Our Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-controller="Product" asp-action="CreateProduct" class="nav-link">Create Product</a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-controller="Cart" asp-action="CartItems" class="nav-link"><i class="fa fa-cart-plus fa-2x"></i></a>
-                    </li>
-                    @if (signInManager.IsSignedIn(User))
-                    {
-                        <li class="nav-item">
-                            <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
-                        </li>
-                    }
-                </ul>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a asp-controller="Home" asp-action="Index" class="nav-link">
+                                    Home
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Product" asp-action="Products" class="nav-link">Our Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Product" asp-action="CreateProduct" class="nav-link">Create Product</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Cart" asp-action="CartItems" class="nav-link"><i class="fa fa-cart-plus fa-2x"></i></a>
+                            </li>
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
+                                </li>
+                            }
+                        </ul>
                     }
                     else if (ViewContext.RouteData.Values["Action"].ToString().Equals("CreateProduct"))
                     {
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a asp-controller="Home" asp-action="Index" class="nav-link">
-                            Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-controller="Product" asp-action="Products" class="nav-link">Our Products</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a asp-controller="Product" asp-action="CreateProduct" class="nav-link">Create Product</a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-controller="Cart" asp-action="CartItems" class="nav-link"><i class="fa fa-cart-plus fa-2x"></i></a>
-                    </li>
-                    @if (signInManager.IsSignedIn(User))
-                    {
-                        <li class="nav-item">
-                            <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
-                        </li>
-                    }
-                </ul>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a asp-controller="Home" asp-action="Index" class="nav-link">
+                                    Home
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Product" asp-action="Products" class="nav-link">Our Products</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a asp-controller="Product" asp-action="CreateProduct" class="nav-link">Create Product</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Cart" asp-action="CartItems" class="nav-link"><i class="fa fa-cart-plus fa-2x"></i></a>
+                            </li>
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
+                                </li>
+                            }
+                        </ul>
                     }
                     else if (ViewContext.RouteData.Values["Action"].ToString().Equals("CartItems"))
                     {
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a asp-controller="Home" asp-action="Index" class="nav-link">
-                            Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-controller="Product" asp-action="Products" class="nav-link">Our Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-controller="Product" asp-action="CreateProduct" class="nav-link">Create Product</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a asp-controller="Cart" asp-action="CartItems" class="nav-link"><i class="fa fa-cart-plus fa-2x"></i></a>
-                    </li>
-                    @if (signInManager.IsSignedIn(User))
-                    {
-                        <li class="nav-item">
-                            <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
-                        </li>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a asp-controller="Home" asp-action="Index" class="nav-link">
+                                    Home
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Product" asp-action="Products" class="nav-link">Our Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Product" asp-action="CreateProduct" class="nav-link">Create Product</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a asp-controller="Cart" asp-action="CartItems" class="nav-link"><i class="fa fa-cart-plus fa-2x"></i></a>
+                            </li>
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
+                                </li>
+                            }
+                        </ul>
                     }
                     else
                     {
-                        <li class="nav-item">
-                            <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
-                        </li>
-                    }
-                </ul>
-                    }
-                    else  
-                    {
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a asp-controller="Home" asp-action="Index" class="nav-link">
-                            Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-controller="Product" asp-action="Products" class="nav-link">Our Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-controller="Product" asp-action="CreateProduct" class="nav-link">Create Product</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a asp-controller="Cart" asp-action="CartItems" class="nav-link"><i class="fa fa-cart-plus fa-2x"></i></a>
-                    </li>
-                    @if (signInManager.IsSignedIn(User))
-                    {
-                        <li class="nav-item">
-                            <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
-                        </li>
-                    }
-                </ul>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a asp-controller="Home" asp-action="Index" class="nav-link">
+                                    Home
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Product" asp-action="Products" class="nav-link">Our Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Product" asp-action="CreateProduct" class="nav-link">Create Product</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a asp-controller="Cart" asp-action="CartItems" class="nav-link"><i class="fa fa-cart-plus fa-2x"></i></a>
+                            </li>
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
+                                </li>
+                            }
+                        </ul>
                     }
                 </div>
             </div>
@@ -235,18 +247,10 @@
 
 
     <!-- Bootstrap core JavaScript -->
-    <script src="~/vendor/jquery/jquery.min.js"></script>
-    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-
     <!-- Additional Scripts -->
-    <script src="~/assets/js/custom.js"></script>
-    <script src="~/assets/js/owl.js"></script>
-    <script src="~/assets/js/slick.js"></script>
-    <script src="~/assets/js/isotope.js"></script>
-    <script src="~/assets/js/accordions.js"></script>
+
+    
+
 </body>
 
 </html>

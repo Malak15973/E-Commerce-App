@@ -19,10 +19,17 @@
 
 <div class="products">
     <div class="container">
+        <div style="width:400px;margin:20px" class="input-group">
+            <input type="search"
+                   class="form-control rounded-end me-2"
+                   placeholder="Search" />
+            <button id="searchButton" class="btn btn-secondary">Search</button>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="filters-content">
-                    <div class="row grid">
+                    <div id="productsGrid" class="row grid">
                         @foreach (var product in Model)
                         {
                             @await Component.InvokeAsync("Product", new { product = product, userId = ViewBag.UserId })
@@ -32,7 +39,7 @@
             </div>
             <div class="col-md-12">
                 <ul class="pages">
-                    @for (int i = 1; i <= ((int)(ViewBag.ProductsCount/5))+1; i++)
+                    @for (int i = 1; i <= ((int)(ViewBag.ProductsCount / 5)) + 1; i++)
                     {
                         <li><a asp-controller="Product" asp-action="Products" asp-route-skip="@((i-1)*5)">@i</a></li>
                     }
@@ -42,3 +49,40 @@
     </div>
 </div>
 
+<script>
+    $(function () {
+        var myDiv = $("#productsGrid");
+        $("#searchButton").on("click", function () {
+            var input = $("input[type=search]").val();
+            $.ajax({
+                type: "POST",
+                url: "/Product/Search",
+                data: { searchKey: input },
+                success: function (res) {
+                    myDiv.empty();
+                    $.each(res, function (i, e) { 
+                        $.ajax({
+                            url: "/Product/GetProductViewComponent",
+                            type: "get",
+                            dataType: "html",
+                            data: {
+                                Id: e.id,
+                                Title: e.title,
+                                Description: e.description,
+                                Price: e.price,
+                                PhotoPath: e.photoPath,
+                                IsInUserCart: e.isInUserCart
+                            },
+                            success: function (result) {
+                                myDiv.append(result);
+                            }
+                        });
+
+                    });
+
+                }
+
+            });
+        });
+    });
+</script>
